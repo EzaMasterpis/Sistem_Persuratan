@@ -1,58 +1,228 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Persuratan BPKAD Kabupaten Madiun
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web untuk surat-menyurat internal di lingkungan **Badan Pengelolaan Keuangan dan Aset Daerah (BPKAD) Kabupaten Madiun**. Sistem ini menggantikan surat fisik antarbagian dengan proses digital yang lebih cepat, tertib, dan terdokumentasi, termasuk lembar disposisi seperti yang dipakai di instansi.
 
-## About Laravel
+Tampilannya sederhana dengan dominasi warna putih dan kuning, sesuai nuansa situs pemerintahan.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Akun dan bagian**
+- Landing page dengan pengenalan sistem dan FAQ (dropdown).
+- Daftar, login, dan logout. Saat mendaftar, pengguna memilih bagiannya: Sekretariat, Anggaran, Aset & Akuntansi, atau Perbendaharaan.
+- Dua peran: **admin** (Sekretariat, wewenang lebih) dan **staf**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Surat**
+- Antarmuka ala Gmail: tombol **Tulis Surat** membuka jendela di pojok kanan bawah, lengkap dengan sidebar folder.
+- Folder: Kotak Masuk, Terkirim, Draft, Arsip, dan Disimpan.
+- Kirim ke **beberapa bagian sekaligus** atau semua bagian selain pengirim. Bagian yang salah pilih bisa dihapus dari daftar.
+- **Tembusan** (opsional) untuk bagian yang hanya perlu mengetahui.
+- Sifat surat: Sangat Segera, Segera, Rahasia, Penting, atau tanpa sifat.
+- **Lampiran** file (maksimal 5 file, 5 MB per file; PDF, Word, Excel, JPG, PNG). File disimpan privat dan hanya bisa dibuka oleh pengirim dan penerima surat.
+- Draft yang bisa diedit sebelum dikirim.
+- Filter berdasarkan sifat surat dan rentang tanggal, ditambah pencarian perihal dan isi surat.
 
-## Learning Laravel
+**Lembar disposisi**
+- Surat tampil di sisi penerima sebagai lembar disposisi: kop surat, surat dari, nomor dan tanggal surat, nomor agenda, sifat, perihal, diteruskan kepada, instruksi ("Dengan hormat harap"), isi disposisi, keterangan, dan diteruskan ke.
+- Nomor agenda terisi otomatis saat surat dikirim, satu urutan untuk seluruh BPKAD dan dimulai dari 1 setiap tahun.
+- Bagian disposisi diisi oleh admin (Sekretariat).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Notifikasi dan status**
+- Ikon lonceng di header dengan tiga jenis notifikasi: surat berhasil terkirim (untuk pengirim), surat baru atau tembusan (untuk bagian penerima), dan surat diterima (untuk pengirim).
+- Status **dibaca** tercatat otomatis per bagian.
+- Status **diterima** adalah konfirmasi manual lewat tombol **Terima Surat**, juga per bagian. Pengirim melihat status tiap bagian di halaman surat.
+- **Simpan (bookmark)** pribadi untuk surat penting, muncul di folder Disimpan.
+- Dialog konfirmasi dan toast memakai SweetAlert2.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teknologi
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+| Komponen | Teknologi |
+|---|---|
+| Framework | Laravel 13 |
+| Bahasa | PHP (dikembangkan dengan PHP 8.5) |
+| Basis data | MySQL |
+| Tampilan | Blade, Tailwind CSS v4 |
+| Interaksi | Alpine.js, SweetAlert2 |
+| Build aset | Vite |
+| Lingkungan pengembangan | Laragon |
 
-## Agentic Development
+## Persyaratan
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- PHP versi yang didukung Laravel 13, dengan ekstensi umum Laravel (mbstring, openssl, pdo_mysql, fileinfo, dan sebagainya)
+- Composer
+- Node.js dan npm
+- MySQL
+- [Laragon](https://laragon.org/) (disarankan di Windows; sudah memuat semua di atas)
 
-```bash
-composer require laravel/boost --dev
+## Instalasi
 
-php artisan boost:install
+1. **Ambil proyek** dan masuk ke foldernya (di Laragon biasanya di `C:\laragon\www`):
+
+   ```bash
+   git clone <url-repositori> persuratan-bpkad
+   cd persuratan-bpkad
+   ```
+
+2. **Pasang dependensi:**
+
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Siapkan file lingkungan:**
+
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Atur `.env`:**
+
+   ```env
+   APP_NAME="Sistem Persuratan BPKAD Kabupaten Madiun"
+   APP_URL=http://127.0.0.1:8000
+   APP_LOCALE=id
+   APP_TIMEZONE=Asia/Jakarta
+
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=persuratan_bpkad
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+5. **Buat database** `persuratan_bpkad` di MySQL (lewat HeidiSQL di Laragon: klik kanan > Create new > Database).
+
+6. **Jalankan migrasi dan seeder:**
+
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+   Seeder membuat empat akun contoh (lihat bagian berikutnya) dan beberapa surat contoh.
+
+7. **Letakkan logo** Pemerintah Kabupaten Madiun di `public/images/logo-madiun.png`. File logo tidak disertakan di repositori. Jika belum ada, halaman tetap tampil dengan kotak pengganti.
+
+8. **Jalankan aplikasi.** Buka dua terminal:
+
+   ```bash
+   php artisan serve
+   ```
+
+   ```bash
+   npm run dev
+   ```
+
+   Lalu buka `http://127.0.0.1:8000`.
+
+   Alternatifnya, `npm run build` sekali untuk membuat aset produksi (diulang setiap kali mengubah CSS, JavaScript, atau kelas Tailwind), lalu cukup menjalankan `php artisan serve`.
+
+## Akun contoh
+
+Dibuat oleh `UserSeeder`. Semuanya memakai kata sandi **`password123`**.
+
+| Bagian | Email | Peran |
+|---|---|---|
+| Sekretariat | `sekretariat@bpkad.test` | Admin |
+| Anggaran | `anggaran@bpkad.test` | Staf |
+| Perbendaharaan | `perbendaharaan@bpkad.test` | Staf |
+| Aset & Akuntansi | `aset@bpkad.test` | Staf |
+
+> Akun ini hanya untuk pengembangan. Ganti atau hapus sebelum sistem dipakai pegawai sebenarnya.
+
+## Hak akses
+
+| Tindakan | Siapa |
+|---|---|
+| Membaca surat terkirim | Pengirim dan pegawai di bagian penerima (utama maupun tembusan) |
+| Mengedit atau menghapus draft | Hanya pengirimnya |
+| Menghapus surat terkirim | Hanya admin (Sekretariat); surat dan lampirannya hilang untuk semua penerima |
+| Mengarsipkan surat | Bagian penerima (per bagian) |
+| Menerima surat | Pegawai di bagian penerima, bukan pengirim; berlaku per bagian |
+| Mengisi bagian disposisi di form | Hanya admin (Sekretariat) |
+| Menyimpan (bookmark) surat | Siapa pun yang berhak membaca surat; bersifat pribadi |
+
+Aturan ini ada di `app/Policies/SuratPolicy.php`.
+
+Akun yang dibuat lewat halaman daftar berperan **staf**. Untuk menjadikan akun sebagai admin, ubah kolom `role` menjadi `admin`, misalnya lewat `php artisan tinker`:
+
+```php
+App\Models\User::where('email', 'email@contoh.test')->update(['role' => 'admin']);
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Konfigurasi
 
-## Contributing
+Pengaturan khusus aplikasi ada di `config/bpkad.php`:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- `bagian`: daftar bagian dan urutannya.
+- `jabatan`: nama jabatan di bagian "Diteruskan kepada Yth." pada lembar disposisi.
+- `sifat`: pilihan sifat surat.
+- `instruksi`: pilihan "Dengan hormat harap".
+- `kop`: teks kop surat (nama instansi, alamat, telepon, email).
+- `folders`: daftar folder di sidebar.
+- `lampiran`: batas jumlah, ukuran, dan format file lampiran.
 
-## Code of Conduct
+Setelah mengubah file ini, jalankan `php artisan config:clear`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur penting
 
-## Security Vulnerabilities
+```
+app/
+├── Http/Controllers/
+│   ├── AuthController.php        # daftar, login, logout
+│   ├── LandingController.php     # landing page dan FAQ
+│   ├── SuratController.php       # daftar, kirim, baca, edit, arsip, terima, simpan
+│   ├── LampiranController.php    # unduh lampiran (dengan pemeriksaan hak akses)
+│   └── NotifikasiController.php  # buka dan tandai notifikasi
+├── Models/                       # User, Surat, SuratPenerima, Lampiran
+├── Notifications/                # SuratMasuk, SuratTerkirim, SuratDiterima
+└── Policies/SuratPolicy.php      # aturan hak akses surat
+config/bpkad.php                  # pengaturan khusus aplikasi
+database/seeders/                 # UserSeeder, SuratSeeder
+resources/
+├── css/app.css                   # Tailwind dan warna tema
+├── js/app.js                     # Alpine.js dan SweetAlert2
+└── views/
+    ├── landing.blade.php
+    ├── auth/                     # login dan daftar
+    ├── layouts/                  # guest dan app (dashboard)
+    ├── partials/                 # jendela Surat Baru, lembar disposisi, detail disposisi
+    ├── components/               # ikon, badge sifat, pemilih penerima dan lampiran, kotak centang
+    └── surat/                    # baca dan edit draft
+routes/web.php
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Catatan keamanan
 
-## License
+- **Lampiran** disimpan di `storage/app/private/lampiran/{id_surat}` dan tidak bisa diakses lewat URL langsung. Pengunduhan melalui `LampiranController`, yang memeriksa hak akses pada surat induknya.
+- Pendaftaran saat ini **terbuka** bagi siapa pun yang bisa mengakses aplikasi. Untuk pemakaian sungguhan, batasi akses jaringan atau tambahkan persetujuan admin atas pendaftar baru.
+- Sebelum produksi: set `APP_ENV=production`, `APP_DEBUG=false`, ganti kata sandi akun contoh, dan pertimbangkan pemindaian virus pada file yang diunggah.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Pemecahan masalah
+
+| Masalah | Solusi |
+|---|---|
+| `Vite manifest not found` atau tampilan tanpa gaya | Jalankan `npm run dev` atau `npm run build` |
+| Kelas Tailwind baru tidak berpengaruh | Pastikan `npm run dev` berjalan, atau jalankan `npm run build` ulang, lalu Ctrl+F5 |
+| Perubahan konfigurasi atau view tidak terbaca | `php artisan optimize:clear` |
+| Gagal menjalankan migrasi | Pastikan MySQL di Laragon sudah Start dan database `persuratan_bpkad` sudah dibuat |
+| Unggah lampiran gagal untuk file kecil | Naikkan `upload_max_filesize` dan `post_max_size` di `php.ini`, lalu restart server |
+| Seeder surat gagal karena akun tidak ditemukan | Jalankan `php artisan db:seed` (memanggil `UserSeeder` lebih dulu) |
+
+## Rencana pengembangan
+
+- Cetak lembar disposisi ke A4.
+- Balas surat dan riwayat percakapan (thread).
+- Panel admin: persetujuan pendaftar, pengaturan peran, dan penonaktifan akun.
+- Fitur lupa kata sandi.
+- Template surat per bagian dan penomoran surat otomatis.
+- Penerusan disposisi ke pegawai tertentu di dalam bidang.
+- Paraf atau tanda tangan digital.
+- Pengingat otomatis untuk surat yang belum diterima.
+- Notifikasi real-time.
+
+## Lisensi
+
+Dikembangkan untuk keperluan internal BPKAD Kabupaten Madiun.
